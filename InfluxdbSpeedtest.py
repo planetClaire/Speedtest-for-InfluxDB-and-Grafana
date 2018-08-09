@@ -6,6 +6,7 @@ from influxdb import InfluxDBClient
 from influxdb.exceptions import InfluxDBClientError, InfluxDBServerError
 import speedtest
 import time
+import socket
 
 class configManager():
 
@@ -105,7 +106,8 @@ class InfluxdbSpeedtest():
                     'ping': result_dict['server']['latency']
                 },
                 'tags': {
-                    'server': result_dict['server']['sponsor']
+                    'server': result_dict['server']['sponsor'],
+                    'host': socket.gethostname()
                 }
             }
         ]
