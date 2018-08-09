@@ -120,10 +120,16 @@ class InfluxdbSpeedtest():
 
         while True:
 
-            self.speedtest.download()
-            self.speedtest.upload()
+            try:
 
-            self.send_results()
+                self.speedtest.download()
+                self.speedtest.upload()
+
+                self.send_results()
+
+            except (BadStatusLine) as e:
+                print('ERROR: Failed to run test')
+                print(e)
 
             time.sleep(self.config.delay)
 
