@@ -7,6 +7,7 @@ from influxdb.exceptions import InfluxDBClientError, InfluxDBServerError
 import speedtest
 import time
 import socket
+from http.client import BadStatusLine
 
 class configManager():
 
