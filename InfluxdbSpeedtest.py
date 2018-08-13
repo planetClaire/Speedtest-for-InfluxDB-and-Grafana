@@ -131,7 +131,20 @@ class InfluxdbSpeedtest():
                 self.send_results()
 
             except (BadStatusLine) as e:
-                print('ERROR: Failed to run test')
+                self.write_influx_data([
+                    {
+                        'measurement': 'speed_test_results',
+                        'fields': {
+                            'download': 0,
+                            'upload': 0
+                        },
+                        'tags': {
+                            'host': socket.gethostname()
+                        }
+                    }
+                ])
+
+                print('ERROR: The server returned a bad status code')
                 print(e)
 
             time.sleep(self.config.delay)
